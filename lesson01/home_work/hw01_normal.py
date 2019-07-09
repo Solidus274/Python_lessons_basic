@@ -10,16 +10,16 @@ __author__ = 'Гриненко Алексей Валерьевич'
 # * постарайтесь решить задачу с применением арифметики и цикла while;
 # * при желании и понимании решите задачу с применением цикла for.
 
-b = input()
-c = 0
+random = input()
+max = 0
 
-for a in b:
-  if int(a) > c:
-    c = int(a)
+for number in random:
+  if int(number) > max:
+    max = int(number)
   else:
     continue
 
-print(c)
+print(max)
 
 # Задача-2: Исходные значения двух переменных запросить у пользователя.
 # Поменять значения переменных местами. Вывести новые значения на экран.
@@ -28,13 +28,13 @@ print(c)
 # * постарайтесь сделать решение через действия над числами;
 # * при желании и понимании воспользуйтесь синтаксисом кортежей Python.
 
-a = int(input())
-b = int(input())
+number_1 = int(input("number_1 = "))
+number_2 = int(input("number_2 = "))
 
-a, b = b, a
+number_1, number_2 = number_2, number_1
 
-print('a =', a)
-print('b =', b)
+print('number_1 =', number_1)
+print('number_2 =', number_2)
 
 # Задача-3: Напишите программу, вычисляющую корни квадратного уравнения вида
 # ax² + bx + c = 0.
