@@ -10,13 +10,22 @@ __author__ = 'Гриненко Алексей Валерьевич'
 # 	Код: a > 999999
 # 	Результат: True
 
-#Решение:
-
-answer = float('inf')
-
-print(answer)
 
 #Ответ: inf
+#Проверка:
+
+a = float('inf')
+
+if a == a**2:
+  print("True")
+  
+if a == a*2:
+  print("True")
+  
+if a > 999999:
+  print("True")
+
+
 
 
 # Вопрос: Чему была равна переменная a,
