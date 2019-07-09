@@ -12,8 +12,9 @@ __author__ = 'Гриненко Алексей Валерьевич'
 
 #Решение:
 
-Answer = float('inf')
-print(Answer)
+answer = float('inf')
+
+print(answer)
 
 #Ответ: inf
 
