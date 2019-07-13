@@ -11,15 +11,39 @@
 # 3.   киви
 # 4.  арбуз
 
-# Подсказка: воспользоваться методом .format()
+grocery = ['авокадо','сыр', 'хлеб', 'молоко', 'чай', 'вода', 'мясо']
+i = 0
+while len(grocery) > i:
+    print(i + 1,'.', '{:>10}'.format(grocery[i]),sep = '')
+    i += 1
 
+# Подсказка: воспользоваться методом .format()
 
 # Задача-2:
 # Даны два произвольные списка.
 # Удалите из первого списка элементы, присутствующие во втором списке.
 
+shopping = ['авокадо','сыр', 'хлеб', 'молоко', 'чай', 'вода', 'мясо']
+basket = ['авокадо', 'молоко', 'мясо']
+
+placeholder_shopping = set(shopping)
+placeholder_basket = set(basket)
+shopping = list(placeholder_shopping.difference(placeholder_basket))
+
+print(shopping)
 
 # Задача-3:
 # Дан произвольный список из целых чисел.
 # Получите НОВЫЙ список из элементов исходного, выполнив следующие условия:
 # если элемент кратен двум, то разделить его на 4, если не кратен, то умножить на два.
+
+numbers = [1, 3, 9, 56, 548, 213, 4564894, 999, 55, 2, 0]
+numbers_new = []
+
+for i in numbers:
+    if i % 2 == 0:
+        numbers_new.append(i / 4)
+    else:
+        numbers_new.append(i * 2)
+
+print(numbers_new)
