@@ -3,7 +3,12 @@
 # Первыми элементами ряда считать цифры 1 1
 
 def fibonacci(n, m):
-    pass
+    fibo = [1, 1]
+    for i in range(m):
+        fibo.append(int(fibo[i])+int(fibo[i+1]))
+    print(fibo[n:m])
+
+fibonacci(5, 25)
 
 # Задача-2:
 # Напишите функцию, сортирующую принимаемый список по возрастанию.
@@ -12,7 +17,14 @@ def fibonacci(n, m):
 
 
 def sort_to_max(origin_list):
-    pass
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(len(origin_list) - 1):
+            if origin_list[i] > origin_list[i + 1]:
+                origin_list[i], origin_list[i + 1] = origin_list[i + 1], origin_list[i]
+                swapped = True
+    print(origin_list)
 
 sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
 
@@ -20,8 +32,41 @@ sort_to_max([2, 10, -12, 2.5, 20, -11, 4, 4, 0])
 # Напишите собственную реализацию стандартной функции filter.
 # Разумеется, внутри нельзя использовать саму функцию filter.
 
+def filt(arg, start_list):
+    filtered_list = []
+    for i in start_list:
+        if i != arg:
+            filtered_list.append(i)
+    print(filtered_list)
+
+filt(55, [5, 64, 854, 55, 4, 2, 55, 3, 252, 55, 14, 9, 55, 4, 2, 55, 3, 252, 55, 14, 9])
 
 # Задача-4:
 # Даны четыре точки А1(х1, у1), А2(x2 ,у2), А3(x3 , у3), А4(х4, у4).
 # Определить, будут ли они вершинами параллелограмма.
 
+#Для данной задачи требуется проверить попарно угловые коэффициенты таких прямых: A1A2 и A3A4; A1A4 и A2A3.
+#Уравнение прямой проходящей через две данные точки:
+#(y-y1)/(y2-y1)=(x-x1)/(x2-x1)
+
+#Путем преобразований получим:
+#y = x*(y2-y1)/(x2-x1) - x1(y2-y1) + y1(x2-x1)
+#Следовательно угловой коэффициент можно найти через такое соотношение (коэффициент при х):
+#k = (y2-y1)/(x2-x1)
+
+def angular(a1, b1, a2, b2):
+    ang = (b2 - b1) / (a2 - a1)
+    return ang
+
+def geometry(x1, y1, x2, y2, x3, y3, x4, y4):
+    k1 = angular(x1, y1, x2, y2)
+    k2 = angular(x3, y3, x4, y4)
+    k3 = angular(x1, y1, x4, y4)
+    k4 = angular(x2, y2, x3, y3)
+    if k1 == k2 and k3 == k4:
+        print("Да. Данные точки являются вершинами параллелограмма")
+    else:
+        print("Нет. Данные точки не являются вершинами параллелограмма")
+
+geometry(-3, 11, 12, -4, 1, -7, -14, 8)
+geometry(-3, 11, 12, -4, 1, -7, -14, 7)
