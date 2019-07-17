@@ -31,3 +31,15 @@
 # Подсказка:
 # Чтобы получить список больших букв русского алфавита:
 # print(list(map(chr, range(ord('А'), ord('Я')+1))))
+
+dikt_fruts = dict()
+with open('fruits.txt', encoding='utf-8') as inp_ut:
+    for fruits in inp_ut.readlines():
+        file_name = 'fruits_{}'.format(fruits[0].upper())
+        dikt_fruts[file_name] = dikt_fruts.get(file_name, '') + fruits
+
+for i in dikt_fruts:
+    name = '{}.txt'.format(i)
+    with open(name, 'w') as out:
+        out.write(dikt_fruts[i])
+print('Формирование файлов по именам фруктов закончено!')
