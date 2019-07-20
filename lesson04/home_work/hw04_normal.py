@@ -114,7 +114,7 @@ print('Список без использованием модуля re: \n', li
 import os
 import random
 import re
-count_num = 250
+count_num = 2500
 
 num_list = [random.randint(0, 9) for _ in range(count_num)]
 new_list = ''.join(list(map(lambda x: str(x), num_list)))
