@@ -4,7 +4,8 @@
 matrix = [[1, 0, 8],
           [3, 4, 1],
           [0, 4, 2]]
-          
+
+
 # Выполнить поворот (транспонирование) матрицы
 # Пример. Результат:
 # matrix_rotate = [[1, 3, 0],
@@ -12,6 +13,13 @@ matrix = [[1, 0, 8],
 #                  [8, 1, 2]]
 
 # Суть сложности hard: Решите задачу в одну строку
+
+matrix_rotate = [line for line in list(map(list, zip(*matrix)))]
+print(matrix_rotate)
+
+# Как вариант сразу с выводом в виде матрицы:
+# matrix_rotate_print = [print(line) for line in list(map(list, zip(*matrix)))]
+
 
 # Задание-2:
 # Найдите наибольшее произведение пяти последовательных цифр в 1000-значном числе.
@@ -39,6 +47,23 @@ number = """
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450"""
 
+import re
+
+number = "".join(re.findall(r"\d",number))
+list_x = []
+list_y = []
+result = 1
+
+for j in range(len(number)-4):
+    number_x = number[j:(j+5)]
+    list_x.append(number_x)
+    for k in range(len(number_x)):
+        result *= int(number_x[k])
+    list_y.append(result)
+    result = 1
+
+print(f"Наибольшее произведение пяти последовательных цифр: {max(list_y)}")
+print(f"Индекс смещения первого числа последовательности: {list_y.index(max(list_y))}")
 
 # Задание-3 (Ферзи):
 # Известно, что на доске 8×8 можно расставить 8 ферзей так, чтобы они не били
