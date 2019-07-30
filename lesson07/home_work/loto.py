@@ -57,3 +57,57 @@
 модуль random: http://docs.python.org/3/library/random.html
 
 """
+import random
+
+card_player = random.sample(range(90), 16)
+card_machine = random.sample(range(90), 16)
+5
+print(card_player, card_machine)
+barrel_bag = [i for i in range(91)]
+
+row_a = card_player[:5] + [" "] * 4
+row_b = card_player[5:10] + [" "] * 4
+row_c = card_player[11:] + [" "] * 4
+row_m_a = card_machine[:5] + [" "] * 4
+row_m_b = card_machine[5:10] + [" "] * 4
+row_m_c = card_machine[11:] + [" "] * 4
+
+print("--------------------------")
+print(*sorted(row_a, key=lambda x: random.random()))
+print(*sorted(row_b, key=lambda x: random.random()))
+print(*sorted(row_c, key=lambda x: random.random()))
+print("--------------------------")
+print()
+print("--------------------------")
+print(*sorted(row_m_a, key=lambda x: random.random()))
+print(*sorted(row_m_b, key=lambda x: random.random()))
+print(*sorted(row_m_c, key=lambda x: random.random()))
+print("--------------------------")
+
+
+def new_barrel(val):
+   while len(val) > 0:
+       x = random.choice(val)
+       y = x
+       val.remove(x)
+       yield y
+
+
+def barrel_choice(current_barrel):
+    if card_player.count(current_barrel) > 0:
+        print(f"Бинго! Цифра {current_barrel} есть в карточке игрока!")
+        card_player.remove(current_barrel)
+    else:
+        print(f"Нифига. Цифры {current_barrel} нет в карточке игрока!")
+
+    if card_machine.count(current_barrel) > 0:
+        print(f"Бинго! Цифра {current_barrel} есть в карточке машины!")
+        card_machine.remove(current_barrel)
+    else:
+        print(f"Нифига. Цифры {current_barrel} нет в карточке машины!")
+
+barrel_iter = new_barrel(barrel_bag)
+
+barrel_choice(next(barrel_iter))
+
+print(card_player, card_machine)
