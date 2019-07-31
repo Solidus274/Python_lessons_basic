@@ -59,30 +59,36 @@
 """
 import random
 
-card_player = random.sample(range(90), 16)
-card_machine = random.sample(range(90), 16)
-5
-print(card_player, card_machine)
-barrel_bag = [i for i in range(91)]
 
-row_a = card_player[:5] + [" "] * 4
-row_b = card_player[5:10] + [" "] * 4
-row_c = card_player[11:] + [" "] * 4
-row_m_a = card_machine[:5] + [" "] * 4
-row_m_b = card_machine[5:10] + [" "] * 4
-row_m_c = card_machine[11:] + [" "] * 4
+def generate_cards():
+    global card_player
+    global card_machine
+    card_player = random.sample(range(90), 15)
+    card_machine = random.sample(range(90), 15)
+    row_a = sorted(card_player[:5] + [" "] * 4, key=lambda x: random.random())
+    row_b = sorted(card_player[5:10] + [" "] * 4, key=lambda x: random.random())
+    row_c = sorted(card_player[10:] + [" "] * 4, key=lambda x: random.random())
+    row_m_a = sorted(card_machine[:5] + [" "] * 4, key=lambda x: random.random())
+    row_m_b = sorted(card_machine[5:10] + [" "] * 4, key=lambda x: random.random())
+    row_m_c = sorted(card_machine[10:] + [" "] * 4, key=lambda x: random.random())
+    card_player = row_a + row_b + row_c
+    card_machine = row_m_a + row_m_b + row_m_c
 
-print("--------------------------")
-print(*sorted(row_a, key=lambda x: random.random()))
-print(*sorted(row_b, key=lambda x: random.random()))
-print(*sorted(row_c, key=lambda x: random.random()))
-print("--------------------------")
-print()
-print("--------------------------")
-print(*sorted(row_m_a, key=lambda x: random.random()))
-print(*sorted(row_m_b, key=lambda x: random.random()))
-print(*sorted(row_m_c, key=lambda x: random.random()))
-print("--------------------------")
+
+def print_cards(card_player, card_machine):
+    print("Карточка игрока")
+    print("--------------------------")
+    print(*card_player[:9])
+    print(*card_player[9:18])
+    print(*card_player[18:])
+    print("--------------------------")
+    print()
+    print("Карточка компьютера")
+    print("--------------------------")
+    print(*card_machine[:9])
+    print(*card_machine[9:18])
+    print(*card_machine[18:])
+    print("--------------------------")
 
 
 def new_barrel(val):
@@ -94,20 +100,54 @@ def new_barrel(val):
 
 
 def barrel_choice(current_barrel):
-    if card_player.count(current_barrel) > 0:
-        print(f"Бинго! Цифра {current_barrel} есть в карточке игрока!")
-        card_player.remove(current_barrel)
-    else:
-        print(f"Нифига. Цифры {current_barrel} нет в карточке игрока!")
-
+    global endgame
+    global player_counter
+    global machine_counter
+    print(f"Бочонок номер {current_barrel}")
+    print("Зачеркнуть текущую цифру? Да / Нет / Выход")
+    mode = input()
+    if mode == 'Да':
+        if card_player.count(current_barrel) > 0:
+            print(f"Бинго! Цифра {current_barrel} есть в карточке игрока!")
+            card_player.insert(card_player.index(current_barrel), "-")
+            card_player.remove(current_barrel)
+            player_counter += 1
+        else:
+            print(f"Вы ошиблись. Цифры {current_barrel} нет в карточке игрока!")
+            endgame = False
+    elif mode == 'Нет':
+        if card_player.count(current_barrel) > 0:
+            print(f"Вы ошиблись. Цифра {current_barrel} есть в карточке игрока!")
+            endgame = False
     if card_machine.count(current_barrel) > 0:
-        print(f"Бинго! Цифра {current_barrel} есть в карточке машины!")
+        card_machine.insert(card_machine.index(current_barrel), "-")
         card_machine.remove(current_barrel)
+        machine_counter += 1
     else:
-        print(f"Нифига. Цифры {current_barrel} нет в карточке машины!")
+        endgame = False
 
+
+generate_cards()
+barrel_bag = [i for i in range(91)]
 barrel_iter = new_barrel(barrel_bag)
+print("== Лото ==")
+print("Добро пожаловать в Игру!")
+endgame = True
+player_counter = 0
+machine_counter = 0
 
-barrel_choice(next(barrel_iter))
+while machine_counter < 15 and player_counter < 15 and endgame == True:
+    print_cards(card_player, card_machine)
+    barrel_choice(next(barrel_iter))
+    print("\n" * 10)
+    if len(barrel_bag) == 0:
+        break
 
-print(card_player, card_machine)
+if machine_counter == 15 and player_counter == 15:
+    print("Ничья!")
+elif machine_counter == 15:
+    print("Выйграл Компьютер!")
+elif player_counter == 15:
+    print("Вы победили!!!")
+else:
+    print("Вы проиграли")
