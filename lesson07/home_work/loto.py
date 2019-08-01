@@ -123,8 +123,6 @@ def barrel_choice(current_barrel):
         card_machine.insert(card_machine.index(current_barrel), "-")
         card_machine.remove(current_barrel)
         machine_counter += 1
-    else:
-        endgame = False
 
 
 generate_cards()
